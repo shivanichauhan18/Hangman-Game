@@ -9,7 +9,6 @@ from images import IMAGES
 def ifValid(user_input):
     if len(user_input) != 1:
         return False
-
     if not user_input.isalpha():
         return False
 
@@ -88,7 +87,9 @@ def hangman(secret_word):
 	images_selection_list_indices = [0, 1, 2, 3, 4, 5, 6, 7]
 
 	if user_difficulty_choice not in ["a", "b", "c"]:
-		print ("Aapki choice invalid hai.\nGame easy mode mei start kar rahe hai")
+		print("")
+		print ("Your choice is invalid.\nWe will start game in easy mod")
+		print("")
 
 	else:
 		if user_difficulty_choice == "b":
@@ -100,6 +101,7 @@ def hangman(secret_word):
 			images_selection_list_indices = [1, 3, 5, 7]
 	letters_guessed = []
 	remaining_lives = 8
+	count=0
 	while (remaining_lives > 0): 
 		available_letters = get_available_letters(letters_guessed)
 		print "Available letters: " + available_letters
@@ -107,11 +109,16 @@ def hangman(secret_word):
 		guess = raw_input("Please guess a letter: ")
 		letter = guess.lower()
 		if guess == "hint":
-            		letter = get_hint(secret_word, letters_guessed)
-        
+			if count==1:
+				print ("")
+				print ("you can't get hint more try to think word.")
+				print ("")
+			elif count==0:
+				count=count+1
+				letter = get_hint(secret_word, letters_guessed)
+			
         	else:
             		letter = guess.lower()
-
             		if (not ifValid(letter)):
                 		continue
 
@@ -134,8 +141,7 @@ def hangman(secret_word):
             		print "Remaining Lives : ", remaining_lives
 			print ""
 			letters_guessed.append(letter)
-			remaining_lives -= 1
-				    
+			remaining_lives -= 1	    
     	else:
         	print "Sorry, you ran out of guesses. The word was " + str(secret_word) + "."
 
