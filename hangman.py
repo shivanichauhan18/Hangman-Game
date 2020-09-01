@@ -80,27 +80,29 @@ def hangman(secret_word):
     	print "I am thinking of a word that is " + str(len(secret_word)) + " letters long."
    	print ""
 	user_difficulty_choice = raw_input("Aap abhi kitni difficulty par yeh game khelna chahte ho?\na)\tEasy\nb)\tMedium\nc)\tHard\n\nApni choice a, b, ya c ki terms mei batayein\n")
-	total_lives = remaining_lives = 8
 	    # images_selection_list_indices mei hum woh images ke indices
 	    # store kar rahe hai, jo hume display karni hai, kyuki jab
 	    # total_lives 8 se kam hogi toh hum kuch hi images dikha sakte hai
-	images_selection_list_indices = [0, 1, 2, 3, 4, 5, 6, 7]
-
-	if user_difficulty_choice not in ["a", "b", "c"]:
-		print("")
-		print ("Your choice is invalid.\nWe will start game in easy mod")
-		print("")
-
-	else:
-		if user_difficulty_choice == "b":
+	if user_difficulty_choice == "b":
 			total_lives = remaining_lives = 6
 			images_selection_list_indices = [0, 2, 3, 5, 6, 7]
 
-		elif user_difficulty_choice == "c":
-			total_lives = remaining_lives = 4
-			images_selection_list_indices = [1, 3, 5, 7]
+	elif user_difficulty_choice == "c":
+		total_lives = remaining_lives = 4
+		images_selection_list_indices = [1, 3, 5, 7]
+	elif user_difficulty_choice not in ["a", "b", "c"]:
+		print("")
+		print ("Your choice is invalid.\nWe will start game in easy mod")
+		print("")
+		total_lives = remaining_lives = 8
+		images_selection_list_indices = [0, 1, 2, 3, 4, 5, 6, 7]
+
+
+
+	
 	letters_guessed = []
 	remaining_lives = 8
+	images_selection_list_indices = [0, 1, 2, 3, 4, 5, 6, 7]
 	count=0
 	while (remaining_lives > 0): 
 		available_letters = get_available_letters(letters_guessed)
@@ -137,7 +139,7 @@ def hangman(secret_word):
 			
 		else:
 			print "Oops! That letter is not in my word: " + get_guessed_word(secret_word, letters_guessed)
-			print IMAGES[8-remaining_lives]
+			print IMAGES[total_lives-remaining_lives]
             		print "Remaining Lives : ", remaining_lives
 			print ""
 			letters_guessed.append(letter)
